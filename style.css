@@ -1,0 +1,392 @@
+:root {
+  --primary: #00bcd4;
+  --primary-dark: #0097a7;
+  --text-dark: #1e3c72;
+  --text-light: #555;
+  --background: #ffffff;
+  --card-bg: #f4f9fb;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reset and global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--text-dark);
+}
+
+/* Body Text */
+p, li {
+  color: var(--text-light);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #111;
+  color: white;
+}
+
+.navbar .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 120px 20px;
+  background: linear-gradient(135deg, var(--text-dark), #2a5298);
+  color: white;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+.btn {
+  background-color: var(--primary);
+  padding: 12px 28px;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--primary-dark);
+}
+
+/* About Section */
+.about {
+  padding: 100px 50px;
+  background-color: var(--card-bg);
+}
+
+.about-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-text {
+  flex: 1.2;
+}
+
+.about-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--text-dark);
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.about-image {
+  flex: 0.8;
+  text-align: center;
+}
+
+.about-image img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-text, .about-image {
+    flex: 1;
+  }
+}
+
+/* Skills Section */
+.skills {
+  padding: 100px 50px;
+  background-color: var(--card-bg);
+  text-align: center;
+}
+
+.skills h2 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 50px;
+}
+
+.skills-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.skill-box {
+  background-color: var(--background);
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-box:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.skill-box h3 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.skill-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.skill-box li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--text-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .skills-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Projects Section */
+.projects {
+  padding: 100px 50px;
+  background-color: var(--background);
+  text-align: center;
+}
+
+.projects h2 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 50px;
+}
+
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.project-card {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  width: 320px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 20px;
+  text-align: left;
+}
+
+.project-info h3 {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.project-info p {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  color: var(--text-light);
+}
+
+.project-info .btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+}
+
+/* Contact Section */
+.contact {
+  padding: 100px 50px;
+  background-color: var(--card-bg);
+  text-align: center;
+}
+
+.contact h2 {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.contact p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 30px;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+  outline: none;
+}
+
+.contact-form button {
+  background-color: var(--primary);
+  color: white;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Scroll to Top Button */
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 100;
+  font-size: 18px;
+  border: 2px solid var(--primary);
+  outline: none;
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  padding: 14px;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  background-color: var(--primary-dark);
+}
+.footer {
+  background-color: #111;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.footer .social-icons {
+  margin-top: 15px;
+}
+
+.footer .social-icons a {
+  margin: 0 15px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: var(--primary-dark);
+}
