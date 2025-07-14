@@ -75,7 +75,7 @@ p, li {
   justify-content: center;
   flex-direction: column;
   padding: 120px 20px;
-  background: linear-gradient(135deg, var(--text-dark), #2a5298);
+  background: linear-gradient(135deg, var(--text-dark), #04011a);
   color: white;
   text-align: center;
 }
