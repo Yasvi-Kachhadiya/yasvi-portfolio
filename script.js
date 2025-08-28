@@ -6,6 +6,28 @@
 
 /* Wait for DOM ready */
 document.addEventListener('DOMContentLoaded', function () {
+  // Seamless skills ticker animation
+  (function seamlessSkillsTicker() {
+    const ticker = document.getElementById('skills-ticker');
+    const inner = document.getElementById('skills-ticker-inner');
+    if (!ticker || !inner) return;
+
+    // Duplicate skill items for seamless loop
+    const original = inner.innerHTML;
+    inner.innerHTML += original;
+
+    let scrollPos = 0;
+    const speed = 1.2; // px per frame
+    function animate() {
+      scrollPos += speed;
+      if (scrollPos >= inner.scrollWidth / 2) {
+        scrollPos = 0;
+      }
+      inner.style.transform = `translateX(-${scrollPos}px)`;
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
   /* -------------------------
      Typing animation (hero)
      - This preserves original behavior and timings.
