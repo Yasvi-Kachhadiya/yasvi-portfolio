@@ -1,550 +1,141 @@
-:root {
-  --primary: #00bcd4;
-  --primary-dark: #0097a7;
-  --text-dark: #1e3c72;
-  --text-light: #555;
-  --background: #ffffff;
-  --card-bg: #f4f9fb;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+/* ===========================
+   styles.css — Custom styles
+   - Purpose: small helpers, variables, and accessibility tweaks
+   - Tailwind is used for main layout/styling (via CDN).
+   - Edit the :root variables below to quickly change color accents.
+   =========================== */
+
+/* -- Quick theme variables (change these to customize colors) -- */
+:root{
+  --accent-purple: #8b5cf6; /* purple-400 / tailwind */
+  --accent-blue:   #3b82f6; /* blue-500 / tailwind */
+  --muted:         #9ca3af; /* gray-400 */
+  --card-bg:       #111827; /* gray-900-ish */
+  --glass:         rgba(255,255,255,0.04);
 }
 
-html {
+/* Smooth scrolling for anchor links */
+html{
   scroll-behavior: smooth;
 }
 
-/* Reset and global */
-* {
-  margin: 0;
-  padding: 0;
+/* Slight default box-sizing for easier layout */
+*, *::before, *::after {
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
+/* Body fallback - tailwind sets fonts/colors but keep a tiny safety */
 body {
-  background-color: var(--background);
-  color: var(--text-light);
-  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings */
-h1, h2, h3 {
-  color: var(--text-dark);
+/* Navigation link helper (used together with tailwind classes) */
+.nav-link {
+  position: relative;
+  /* small underline effect if you want */
+}
+.nav-link::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg,var(--accent-purple),var(--accent-blue));
+  border-radius: 999px;
+  transition: transform .28s ease;
+  transform-origin: center;
+  pointer-events: none;
+  opacity: 0.95;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
-/* Body Text */
-p, li {
-  color: var(--text-light);
+/* Social icon shared style (keeps hover look consistent) */
+.social-icon{
+  transition: transform .25s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+.social-icon:focus{
+  outline: 2px solid rgba(139,92,246,0.22);
+  outline-offset: 3px;
+  border-radius: 999px;
 }
 
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  background-color: #111;
-  color: white;
+/* Skill card subtle border and background fallback for non-tailwind environments */
+.skill-card{
+  background: linear-gradient(180deg, rgba(17,24,39,0.6), rgba(20,20,27,0.6));
 }
 
-.navbar .logo {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: var(--primary);
-}
-
-/* Hero Section */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 120px 20px;
-  background: linear-gradient(135deg, var(--text-dark), #04011a);
-  color: white;
-  text-align: center;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.hero h1 span {
-  color: var(--primary);
-}
-
-.hero p {
-  font-size: 1.3rem;
-  margin-bottom: 30px;
-}
-
-.btn {
-  background-color: var(--primary);
-  padding: 12px 28px;
-  color: white;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: var(--primary-dark);
-}
-
-/* About Section */
-.about {
-  padding: 30px 30px;
+/* Project card fallback shadow */
+.project-card{
   background-color: var(--card-bg);
 }
 
-.about-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  max-width: 1100px;
-  margin: 0 auto;
+/* Back-to-top button helpers
+   - The HTML sets it invisible by default (opacity-0 invisible).
+   - JS should toggle the 'show' class to reveal it.
+*/
+#back-to-top {
+  transition: transform .25s ease, opacity .25s ease, visibility .25s;
+  transform-origin: center;
+  /* small drop shadow if browser doesn't render tailwind shadows */
+  box-shadow: 0 8px 20px rgba(99,102,241,0.08);
 }
 
-.about-text {
-  flex: 1.2;
+/* When we want to show the button, JS toggles .show (or .is-visible) */
+#back-to-top.show,
+#back-to-top.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
 }
 
-.about-text h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: var(--text-dark);
-}
-
-.about-text p {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-  color: var(--text-light);
-}
-
-.about-image {
-  flex: 0.8;
-  text-align: center;
-}
-
-.about-image img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid var(--primary);
-}
-/* === Responsive Navbar and Hero Section === */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 15px 20px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    margin-top: 15px;
-  }
-
-  .nav-links a {
-    font-size: 1rem;
-    padding: 8px 0;
-  }
-
-  .hero {
-    padding: 40px 20px;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero p {
-    font-size: 1.1rem;
-  }
-
-  .btn {
-    padding: 10px 22px;
-    font-size: 1rem;
-  }
-}
-
-
-/* Responsive */
-@media (max-width: 768px) {
-  .about-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 40px 20px;
-  }
-
-  .about-text {
-    margin-bottom: 30px;
-  }
-
-  .about-text h2 {
-    font-size: 2rem;
-  }
-
-  .about-text p {
-    font-size: 1rem;
-  }
-
-  .about-image img {
-    width: 160px;
-    height: 160px;
-  }
-}
-
-
-/* Skills Section */
-.skills {
-  padding: 30px 30px;
-  background-color: var(--card-bg);
-  text-align: center;
-}
-
-.skills h2 {
-  font-size: 2.5rem;
-  color: var(--text-dark);
-  margin-bottom: 50px;
-}
-
-.skills-container {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.skill-box {
-  background-color: var(--background);
-  padding: 30px;
-  border-radius: 12px;
-  width: 300px;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.skill-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-}
-
-.skill-box h3 {
-  font-size: 1.5rem;
-  color: var(--primary);
-  margin-bottom: 20px;
-}
-
-.skill-box ul {
-  list-style: none;
-  padding: 0;
-}
-
-.skill-box li {
-  font-size: 1rem;
-  margin-bottom: 10px;
-  color: var(--text-light);
-}
-
-@media (max-width: 768px) {
-  .skills-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .skill-box {
-    width: 90%;
-    max-width: 350px;
-  }
-
-  .skills h2 {
-    font-size: 2rem;
-  }
-}
-
-
-
-/* Projects Section */
-.projects {
-  padding: 30px 30px;
-  background-color: var(--background);
-  text-align: center;
-}
-
-.projects h2 {
-  font-size: 2.5rem;
-  color: var(--text-dark);
-  margin-bottom: 50px;
-}
-
-.projects-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-}
-
-.project-card {
-  background-color: var(--card-bg);
-  border-radius: 15px;
-  box-shadow: var(--shadow);
-  width: 320px;
+/* Small helper for the mobile-menu (if JS toggles .open) */
+#mobile-menu {
+  transition: max-height .36s ease, opacity .28s ease, transform .28s ease;
+  will-change: max-height, opacity;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-.project-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.project-info {
-  padding: 20px;
-  text-align: left;
-}
-
-.project-info h3 {
-  color: var(--primary);
-  margin-bottom: 10px;
-}
-
-.project-info p {
-  font-size: 0.95rem;
-  margin-bottom: 12px;
-  color: var(--text-light);
-}
-
-.project-info .btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 0.9rem;
-}
-@media (max-width: 768px) {
-  .projects-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .project-card {
-    width: 90%;
-    max-width: 350px;
-  }
-
-  .projects h2 {
-    font-size: 2rem;
-  }
-
-  .project-info p {
-    font-size: 0.95rem;
-  }
-}
-
-
-/* Contact Section */
-.contact {
-  padding: 30px 30px;
-  background-color: var(--card-bg);
-  text-align: center;
-}
-
-.contact h2 {
-  font-size: 2.5rem;
-  color: var(--text-dark);
-  margin-bottom: 15px;
-}
-
-.contact p {
-  font-size: 1.1rem;
-  color: var(--text-light);
-  margin-bottom: 30px;
-}
-
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 15px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  resize: none;
-  outline: none;
-}
-
-.contact-form button {
-  background-color: var(--primary);
-  color: white;
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.contact-form button:hover {
-  background-color: var(--primary-dark);
-}
-@media (max-width: 768px) {
-  .contact {
-    padding: 40px 20px;
-  }
-
-  .contact h2 {
-    font-size: 2rem;
-  }
-
-  .contact p {
-    font-size: 1rem;
-  }
-
-  .contact-form {
-    width: 100%;
-    gap: 15px;
-  }
-
-  .contact-form input,
-  .contact-form textarea {
-    font-size: 1rem;
-    padding: 12px;
-  }
-
-  .contact-form button {
-    font-size: 1rem;
-    padding: 10px;
-  }
-}
-
-
-/* Scroll to Top Button */
-#scrollTopBtn {
-  display: none;
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  z-index: 100;
-  font-size: 18px;
-  border: 2px solid var(--primary);
-  outline: none;
-  background-color: var(--primary);
-  color: white;
-  cursor: pointer;
-  padding: 14px;
-  border-radius: 50%;
-  box-shadow: var(--shadow);
-  transition: background-color 0.3s ease;
-}
-
-#scrollTopBtn:hover {
-  background-color: var(--primary-dark);
-}
-.footer {
-  background-color: #111;
-  color: white;
-  text-align: center;
-  padding: 40px 20px;
-}
-
-.footer-content {
-  max-width: 1000px;
-  margin: auto;
-}
-
-.footer .social-icons {
-  margin-top: 15px;
-}
-
-.footer .social-icons a {
-  margin: 0 15px;
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.footer .social-icons a:hover {
-  color: var(--primary-dark);
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 30px 20px;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer .social-icons {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .footer .social-icons a {
-    font-size: 1rem;
-  }
-}
-
-/* Animation Base Styles */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-
-.animate-on-scroll.visible {
+/* If JS adds .open, allow it to expand smoothly (value big enough) */
+#mobile-menu.open {
+  max-height: 1000px; /* large enough to show all menu items */
   opacity: 1;
-  transform: translateY(0);
 }
 
-.project-card,
-.skill-box {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* Accessibility: focus visible state for interactive elements */
+a:focus, button:focus, input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+  border-radius: 8px;
 }
-.project-card:hover,
-.skill-box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+/* Tiny responsive tweak for long skill ticker (prevents vertical scrollbar) */
+@media (max-width: 640px) {
+  .animate-[slideRightToLeft_30s_linear_infinite] {
+    /* slow down animation on tiny screens so it's easier to read */
+    animation-duration: 45s !important;
+  }
 }
+
+/* Helpful classes for YOU:
+   - .theme-purple and .theme-blue can be used to quickly color elements.
+   - Change these if you want different accent colors across site.
+*/
+.theme-purple { color: var(--accent-purple); }
+.theme-blue   { color: var(--accent-blue); }
+
+/* ====== End of styles.css ======
+   Notes for you (simple):
+   - Most design is driven by Tailwind utility classes (already in HTML).
+   - To change primary accent: update --accent-purple and --accent-blue above.
+   - JS will toggle classes:
+       * #mobile-menu.open    -> opens mobile nav
+       * #back-to-top.show    -> shows back-to-top button
+   - If you want extra custom styles later, add them below.
+*/
