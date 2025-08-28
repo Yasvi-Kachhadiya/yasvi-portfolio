@@ -38,10 +38,11 @@ body {
 .nav-link::after{
   content: "";
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: -6px;
-  transform: translateX(-50%) scaleX(0);
-  width: 60%;
+  transform: scaleX(0);
+  width: 100%;
   height: 3px;
   background: linear-gradient(90deg,var(--accent-purple),var(--accent-blue));
   border-radius: 999px;
@@ -52,7 +53,7 @@ body {
 }
 .nav-link:hover::after,
 .nav-link.active::after {
-  transform: translateX(-50%) scaleX(1);
+  transform: scaleX(1);
 }
 
 /* Social icon shared style (keeps hover look consistent) */
@@ -130,12 +131,191 @@ a:focus, button:focus, input:focus, textarea:focus {
 .theme-purple { color: var(--accent-purple); }
 .theme-blue   { color: var(--accent-blue); }
 
-/* ====== End of styles.css ======
-   Notes for you (simple):
-   - Most design is driven by Tailwind utility classes (already in HTML).
-   - To change primary accent: update --accent-purple and --accent-blue above.
-   - JS will toggle classes:
-       * #mobile-menu.open    -> opens mobile nav
-       * #back-to-top.show    -> shows back-to-top button
-   - If you want extra custom styles later, add them below.
-*/
+/* Education Timeline Custom Styles */
+.education-timeline {
+  position: relative;
+}
+.education-timeline-marker {
+  box-shadow: 0 0 0 4px #222, 0 0 12px 2px #a78bfa;
+  transition: box-shadow 0.3s;
+}
+.education-timeline-marker:hover {
+  box-shadow: 0 0 0 6px #222, 0 0 24px 4px #7c3aed;
+}
+.education-timeline-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.education-timeline-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 32px 0 #7c3aed44;
+}
+@media (max-width: 1024px) {
+  .education-timeline-card {
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+  }
+  .education-timeline-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+  .education-timeline-item > div {
+    width: 100% !important;
+    text-align: left !important;
+    padding: 0 !important;
+  }
+  .education-timeline-marker {
+    margin: 0.5rem 0;
+  }
+}
+@media (max-width: 768px) {
+  .education-timeline-card {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .education-timeline-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+  .education-timeline-item > div {
+    width: 100% !important;
+    text-align: left !important;
+    padding: 0 !important;
+  }
+  .education-timeline-marker {
+    margin: 0.5rem 0;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* Education Timeline Animation - Enhanced */
+.education-timeline-item {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95) rotateZ(-2deg);
+  filter: blur(8px) brightness(0.8);
+  transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1), filter 1.2s cubic-bezier(.4,0,.2,1);
+}
+.education-timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateZ(0deg);
+  filter: blur(0) brightness(1);
+}
+.education-timeline-marker {
+  animation: markerPop 1.2s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes markerPop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Project Cards Animation - Enhanced */
+.project-card {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95) rotateZ(2deg);
+  filter: blur(8px) brightness(0.8);
+  transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1), filter 1.2s cubic-bezier(.4,0,.2,1);
+}
+.project-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateZ(0deg);
+  filter: blur(0) brightness(1);
+}
+@media (max-width: 768px) {
+  .project-card {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+.experience-timeline-item {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95) rotateZ(-2deg);
+  filter: blur(8px) brightness(0.8);
+  transition: opacity 1.2s cubic-bezier(.4,0,.2,1), transform 1.2s cubic-bezier(.4,0,.2,1), filter 1.2s cubic-bezier(.4,0,.2,1);
+}
+.experience-timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateZ(0deg);
+  filter: blur(0) brightness(1);
+}
+.experience-timeline-marker {
+  box-shadow: 0 0 0 4px #222, 0 0 12px 2px #a78bfa;
+  animation: markerPop 1.2s cubic-bezier(.4,0,.2,1) both;
+  transition: box-shadow 0.3s;
+}
+.experience-timeline-marker:hover {
+  box-shadow: 0 0 0 6px #222, 0 0 24px 4px #7c3aed;
+}
+.experience-timeline-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.experience-timeline-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 32px 0 #7c3aed44;
+}
+@media (max-width: 1024px) {
+  .experience-timeline-card {
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+  }
+  .experience-timeline-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+  .experience-timeline-item > div {
+    width: 100% !important;
+    text-align: left !important;
+    padding: 0 !important;
+  }
+  .experience-timeline-marker {
+    margin: 0.5rem 0;
+  }
+}
+@media (max-width: 768px) {
+  .experience-timeline-card {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .experience-timeline-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+  }
+  .experience-timeline-item > div {
+    width: 100% !important;
+    text-align: left !important;
+    padding: 0 !important;
+  }
+  .experience-timeline-marker {
+    margin: 0.5rem 0;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.cert-card {
+  transition: box-shadow 0.3s, transform 0.3s, filter 0.3s;
+  box-shadow: 0 4px 24px 0 #3b82f633;
+  filter: drop-shadow(0 2px 8px #8b5cf6aa);
+}
+.cert-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 32px 0 #3b82f6aa;
+  filter: drop-shadow(0 4px 16px #8b5cf6cc);
+}
+@media (max-width: 1024px) {
+  .cert-card {
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  .cert-card {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+}

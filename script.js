@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
      - This preserves original behavior and timings.
      ------------------------- */
   (function typingAnimation() {
-    const roles = ['Developer', 'Designer', 'Data Analyst', 'Problem Solver'];
+    const roles = ['Developer', 'Designer', 'Data Analyst', 'Problem Solver','Engineer'];
     const typingText = document.getElementById('typing-text');
     if (!typingText) return;
 
@@ -231,6 +231,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!sections.length) return;
 
+    // Smooth scroll on nav click
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const section = document.querySelector(href);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
     function onScroll() {
       const scrollPos = window.scrollY + (window.innerHeight / 4); // offset to trigger earlier
       sections.forEach(({ link, section }) => {
@@ -247,5 +261,71 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', onScroll, { passive: true });
     // run once on load
     onScroll();
+  })();
+
+  /* -------------------------
+     Education Timeline Animation (Enhanced)
+     ------------------------- */
+  (function educationTimelineAnimation() {
+    const items = document.querySelectorAll('.education-timeline-item');
+    function revealOnScroll() {
+      const trigger = window.innerHeight * 0.85;
+      items.forEach((item, i) => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < trigger) {
+          setTimeout(() => {
+            item.classList.add('visible');
+          }, i * 400); // 400ms delay per item for smoother effect
+        } else {
+          item.classList.remove('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll, { passive: true });
+    revealOnScroll();
+  })();
+
+  /* -------------------------
+     Project Cards Scroll Animation (Enhanced)
+     ------------------------- */
+  (function projectCardsScrollAnimation() {
+    const cards = document.querySelectorAll('.project-card');
+    function revealProjectsOnScroll() {
+      const trigger = window.innerHeight * 0.88;
+      cards.forEach((card, i) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < trigger) {
+          setTimeout(() => {
+            card.classList.add('visible');
+          }, i * 400); // 400ms delay per card for smoother effect
+        } else {
+          card.classList.remove('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealProjectsOnScroll, { passive: true });
+    revealProjectsOnScroll();
+  })();
+
+  /* -------------------------
+     Experience Timeline Animation
+     ------------------------- */
+  (function experienceTimelineAnimation() {
+    const items = document.querySelectorAll('.experience-timeline-item');
+    function revealOnScroll() {
+      const trigger = window.innerHeight * 0.85;
+      items.forEach((item, i) => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < trigger) {
+          setTimeout(() => {
+            item.classList.add('visible');
+          }, i * 400); // 400ms delay per item for smoother effect
+        } else {
+          item.classList.remove('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll, { passive: true });
+    revealOnScroll();
   })();
 });
