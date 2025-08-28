@@ -141,27 +141,50 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('contact-form');
     if (!form) return;
 
+    // Custom popup helpers
+    function showPopup(msg) {
+      const popup = document.getElementById('form-popup');
+      const popupMsg = document.getElementById('form-popup-message');
+      popupMsg.textContent = msg;
+      popup.classList.remove('hidden');
+    }
+    function hidePopup() {
+      document.getElementById('form-popup').classList.add('hidden');
+    }
+    document.getElementById('form-popup-close').addEventListener('click', hidePopup);
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-
-      // Simple client-side validation (HTML already has required attributes)
       const name = form.querySelector('#name')?.value?.trim() || '';
       const email = form.querySelector('#email')?.value?.trim() || '';
       const subject = form.querySelector('#subject')?.value?.trim() || '';
       const message = form.querySelector('#message')?.value?.trim() || '';
 
       if (!name || !email || !subject || !message) {
-        // Simple user-friendly feedback (you can replace with a nicer toast/modal)
-        alert('Please fill all fields before sending.');
+        showPopup('Please fill all required fields before sending.');
         return;
       }
 
-      // Here we just show a friendly message to the user.
-      // Replace this block with fetch()/XMLHttpRequest to send data to your server.
-      alert('Thank you, ' + (name || 'there') + '! Your message has been received (demo).');
-
-      // reset form for next message
-      form.reset();
+      // Prepare data for Formspree
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          showPopup('Thank you, ' + name + ', for sending your message!');
+          form.reset();
+        } else {
+          showPopup('Sorry, there was a problem sending your message. Please try again later.');
+        }
+      })
+      .catch(() => {
+        showPopup('Sorry, there was a problem sending your message. Please try again later.');
+      });
     });
   })();
 
